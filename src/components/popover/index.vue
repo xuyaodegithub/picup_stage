@@ -6,7 +6,7 @@
 
 <script>
     import {mapActions, mapGetters} from 'vuex'
-    import vTags from './userTags/index'
+    import vTags from './pointToUser/index'
     export default {
         name: "index",
         data() {

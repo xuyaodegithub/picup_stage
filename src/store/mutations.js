@@ -20,6 +20,12 @@ const mutations={
     GET_USERHISLIST(state,data){
         state.userHisList=data;
     },
+    SET_USERORDERLIST(state,data){
+        state.parameterList.userOrderListMM=data;
+    },
+    GET_USERORDERLIST(state,data){
+        state.userOrderList=data;
+    },
     GET_SELLERINFO(state,loginInfo){
         state.sellerInfo=loginInfo;
     }

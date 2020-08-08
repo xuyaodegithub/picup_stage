@@ -1,7 +1,7 @@
 /**
  * Created by Yan on 19/12/14.
  */
-import { userList,userHisList,setUserTag} from '@/apis/user'
+import { userList,userHisList,setUserTag,userOrderList,giveUserPoints} from '@/apis/user'
 
 const actions={
     popoverAlert(context,data){
@@ -18,6 +18,18 @@ const actions={
     setUserTagAction(context,data){
         setUserTag(data).then(res=>context.dispatch('userListAction'))
     },
+    userOrderListAction(context,data){
+        if(data) context.commit('SET_USERORDERLIST',data);
+        userOrderList(context.state.parameterList.userOrderListMM).then(res=>context.commit('GET_USERORDERLIST',res.data))
+    },
+    giveUserPointsAction(context,data){
+        giveUserPoints(data).then(res=>{
+            if(!res.code){
+                context.dispatch('userListAction')
+                context.dispatch('popoverAlert')
+            }
+        })
+    }
 }
 
 

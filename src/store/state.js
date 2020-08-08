@@ -7,9 +7,11 @@ const state={
     sellerInfo:{},//登录人信息
     userList:{},
     userHisList:{},
+    userOrderList:{},
     parameterList:{
         userListMM:{},
         userHisListMM:{},
+        userOrderListMM:{},
     }
 
 }

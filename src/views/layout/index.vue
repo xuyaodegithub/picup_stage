@@ -13,9 +13,11 @@
                 <keep-alive :exclude="['FF']">
                     <router-view/>
                 </keep-alive>
+<!--                <el-collapse-transition>-->
                 <transition name="slide-fade">
                     <v-popover v-if="popoverAlive.openOrclose" v-drag></v-popover>
                 </transition>
+<!--                </el-collapse-transition>-->
             </el-main>
         </el-container>
     </el-container>
@@ -26,7 +28,7 @@
     import vAsild from './vasild'
     import vPopover from '@/components/popover'
     import {mapActions, mapGetters} from 'vuex'
-
+    import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
     export default {
         name: "index",
         data() {
@@ -44,7 +46,7 @@
 
         },
         components: {
-            vHaed, vAsild, vPopover
+            vHaed, vAsild, vPopover,[CollapseTransition.name]:CollapseTransition
         },
         mounted() {
         }

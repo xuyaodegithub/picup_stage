@@ -1,7 +1,7 @@
 <template>
     <div class="list">
         <el-table
-                :data="userList.list"
+                :data="userOrderList.list"
                 style="width: 100%"
                 tooltip-effect="light"
                 :header-cell-style="{color:'#333','fontWeight':'600'}"
@@ -14,7 +14,7 @@
                     :width="item.width">
                 <template slot-scope="scope">
                     <span style="margin-left: 10px" v-if="item.field==='created_at'">{{scope.row[item.field] | changeTime(1)}}</span>
-                    <span style="margin-left: 10px" v-else-if="item.field==='month_remaining'">{{scope.row[item.field]}}<i v-if="scope.row[item.field]">({{scope.row['month_expire_date'] | changeTime(1)}})</i></span>
+                    <span style="margin-left: 10px" v-else-if="item.field==='product_type'">{{scope.row[item.field]===3 ? '包月' : '永久'}}</span>
                     <span style="margin-left: 10px" v-else>{{scope.row[item.field] }}</span>
                 </template>
             </el-table-column>
@@ -23,17 +23,7 @@
                     <el-button
                             size="mini"
                             type="text"
-                            @click="handleEdit(scope.$index, scope.row)">编辑标签
-                    </el-button>
-                    <el-button
-                            size="mini"
-                            type="text"
                             @click="getHisList(scope.$index, scope.row)">查看抠图历史
-                    </el-button>
-                    <el-button
-                            size="mini"
-                            type="text"
-                            @click="giveUserPoint(scope.row.id)">赠送点数
                     </el-button>
                 </template>
             </el-table-column>
@@ -43,7 +33,6 @@
 </template>
 
 <script>
-    import { UpperDPro,deleteProduct } from "@/apis/product"
     import { mapActions,mapGetters } from 'vuex'
     export default {
         name: "list",
@@ -54,35 +43,29 @@
         data() {
             return {
                 tableHead: [
-                    {name: '用户ID', width: '100', field: 'id'},
-                    {name: '余额', width: '', field: 'free_remaining'},
-                    {name: '包月余额', width: '', field: 'month_remaining'},
-                    // {name: '包月到期日', width: '', field: 'month_expire_date'},
-                    {name: '手机号', width: '', field: 'mobile'},
-                    {name: 'IP', width: '', field: 'ip'},
-                    {name: '注册时间', width: '', field: 'created_at'},
-                    {name: '用户标签', width: '', field: 'tags'},
+                    {name: '用户ID', width: '', field: 'user_id'},
+                    {name: '下单时间', width: '', field: 'created_at'},
+                    {name: '价格', width: '', field: 'price'},
+                    {name: '类型', width: '', field: 'product_type'},
+                    {name: '来源', width: '', field: 'source'},
                 ],
             }
         },
         filters: {},
         computed:{
             ...mapGetters([
-                'userList'
+                'userOrderList'
             ])
         },
         methods: {
             ...mapActions([
-                'popoverAlert','userListAction'
+                'popoverAlert','userOrderListAction'
             ]),
             handleEdit(index, row) {
                this.popoverAlert(['vTags',row])
             },
             getHisList(index, row){
-                this.$router.push(`/user/hisList?userId=${row.id}`)
-            },
-            giveUserPoint(id){
-                this.popoverAlert(['vTags',id])
+                this.$router.push(`/user/hisList?userId=${row.user_id}`)
             }
         }
     }

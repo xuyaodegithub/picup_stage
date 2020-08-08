@@ -39,6 +39,11 @@ const routes = [
                 name: '抠图历史',
                 component: () => import(/* webpackChunkName: "product" */ '@/views/userList/userHisList.vue'),
                 meta: {name: '抠图历史', icon: 'el-icon-office-building'}
+            }, {
+                path: 'orderList',
+                name: '订单列表',
+                component: () => import(/* webpackChunkName: "product" */ '@/views/userList/order.vue'),
+                meta: {name: '订单列表', icon: 'el-icon-office-building'}
             },
         ]
     },
